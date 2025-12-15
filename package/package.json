@@ -1,0 +1,37 @@
+{
+  "name": "@bridgerb/sol",
+  "version": "1.0.2",
+  "description": "Calculate solar time as a percentage of day or night",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BridgerB/sol.git",
+    "directory": "package"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node src/index.test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "solar",
+    "sun",
+    "time",
+    "suncalc"
+  ],
+  "author": "bridgerb",
+  "license": "Unlicense",
+  "dependencies": {
+    "suncalc": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.2",
+    "@types/suncalc": "^1.9.2",
+    "typescript": "^5.9.3"
+  }
+}
