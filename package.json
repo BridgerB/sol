@@ -1,6 +1,6 @@
 {
   "name": "@bridgerb/sol",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Calculate solar time as a percentage of day or night",
   "type": "module",
   "main": "dist/index.js",
@@ -8,6 +8,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BridgerB/sol.git"
+  },
   "scripts": {
     "build": "tsc",
     "test": "node src/index.test.ts",
