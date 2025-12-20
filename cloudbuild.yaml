@@ -1,0 +1,24 @@
+steps:
+  - name: "nixos/nix"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+          nix-shell -p deno --run "deno install --allow-scripts && deno task build && deno compile -A --no-check --target x86_64-unknown-linux-gnu --output server-bin-linux start.ts"
+          nix-build build-image.nix --argstr serverBin "$(pwd)/server-bin-linux" --argstr staticDir "$(pwd)/.deno-deploy/static"
+          mkdir -p ~/.config/containers
+          echo '{"default":[{"type":"insecureAcceptAnything"}]}' > ~/.config/containers/policy.json
+          nix-shell -p skopeo --run "skopeo copy docker-archive:./result docker://us-central1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/sol:latest"
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "sol"
+      - "--image"
+      - "us-central1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/sol:latest"
+      - "--region"
+      - "us-central1"
+      - "--allow-unauthenticated"
+      - "--set-secrets"
+      - "DATABASE_URL=DATABASE_URL:latest"

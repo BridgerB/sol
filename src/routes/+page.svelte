@@ -1,10 +1,16 @@
 <script lang="ts">
   import "the-new-css-reset/css/reset.css";
   import { onMount } from "svelte";
-  import { sol } from "@bridgerb/sol";
   import { SunDial } from "$lib";
   import type { GeoResponse } from "$lib";
+  type SolFn = (
+    query: { date: Date; latitude: number; longitude: number },
+  ) => {
+    percentage: number;
+    period: "day" | "night";
+  };
 
+  let solFn = $state<SolFn | null>(null);
   let lat = $state(36.123589);
   let lng = $state(-121.638383);
   let city = $state("");
@@ -20,7 +26,9 @@
   let locationInfo = $derived(city && region ? `${city}, ${region}` : "");
 
   let solResult = $derived(
-    lat && lng ? sol({ date: now, latitude: lat, longitude: lng }) : null,
+    solFn && lat && lng
+      ? solFn({ date: now, latitude: lat, longitude: lng })
+      : null,
   );
 
   let period = $derived(solResult?.period === "day" ? "d" : "n");
@@ -28,10 +36,8 @@
   let solTime = $derived.by(() => {
     if (isSliding) {
       const p = sliderValue < 100 ? "d" : "n";
-      const v = sliderValue < 100
-        ? sliderValue
-        : Math.min(sliderValue - 100, 99.999);
-      return `${v.toFixed(3)}${p}`;
+      const v = sliderValue < 100 ? sliderValue : sliderValue - 100;
+      return `${Math.floor(v)}${p}`;
     }
     if (!solResult) return "⌛";
     return helpMode
@@ -54,6 +60,11 @@
   });
 
   onMount(() => {
+    //suncalc requires window
+    import("@bridgerb/sol").then(({ sol }) => {
+      solFn = sol;
+    });
+
     const intervalId = setInterval(() => {
       if (!isSliding) now = new Date();
     }, 100);
@@ -97,7 +108,9 @@
   </p>
 
   {#if ready}
-    <SunDial {solTime} {helpMode} />
+    {#key solTime}
+      <SunDial {solTime} {helpMode} />
+    {/key}
   {:else}
     <div class="sundial" style="width: 240px; height: 240px"></div>
   {/if}
@@ -122,14 +135,21 @@
       <input
         type="range"
         min="0"
-        max="199.999"
-        step="0.001"
+        max="200"
+        step="1"
         value={sliderValue}
-        oninput={(e) => sliderValue = parseFloat(e.currentTarget.value)}
-        onmousedown={() => helpMode && (isSliding = true)}
-        onmouseup={() => isSliding = false}
-        ontouchstart={() => helpMode && (isSliding = true)}
-        ontouchend={() => isSliding = false}
+        oninput={(e) => {
+          sliderValue = Number(e.currentTarget.value);
+        }}
+        onpointerdown={() => {
+          if (helpMode) isSliding = true;
+        }}
+        onpointerup={() => {
+          isSliding = false;
+        }}
+        onpointerleave={() => {
+          isSliding = false;
+        }}
         aria-label="Solar time slider"
         class="time-slider"
       />

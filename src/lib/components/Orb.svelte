@@ -1,6 +1,5 @@
 <script lang="ts">
-  let { period = "d", value = 0 }: { period: "d" | "n"; value: number } =
-    $props();
+  let { isDay, value = 50 }: { isDay: boolean; value: number } = $props();
 
   function interpolateColor(
     color1: string,
@@ -21,15 +20,15 @@
     return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
   }
 
-  let celestialColor = $derived(
-    period === "d"
+  let color = $derived(
+    isDay
       ? interpolateColor("#FFC107", "#FF4500", Math.abs(value - 50) / 50)
       : "#E0E7FF",
   );
 </script>
 
-<circle r="10" fill={celestialColor} />
-{#if period === "n"}
+<circle r="10" fill={color} />
+{#if !isDay}
   <circle cx="3" cy="2" r="2" fill="#B0B7CF" />
   <circle cx="-2" cy="-3" r="1.5" fill="#B0B7CF" />
   <circle cx="1" cy="-4" r="1" fill="#B0B7CF" />

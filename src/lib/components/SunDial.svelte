@@ -1,19 +1,14 @@
 <script lang="ts">
   import Orb from "./Orb.svelte";
 
-  let { solTime = "0n", helpMode = false }: {
-    solTime: string;
-    helpMode: boolean;
-  } = $props();
+  let { solTime, helpMode }: { solTime: string; helpMode: boolean } =
+    $props();
 
-  let celestialAngle = $derived.by(() => {
-    const val = parseFloat(solTime) || 0;
-    const isDay = solTime.endsWith("d");
-    return isDay ? (val / 100) * Math.PI : Math.PI + (val / 100) * Math.PI;
-  });
-
-  let period = $derived((solTime.endsWith("d") ? "d" : "n") as "d" | "n");
+  let isDay = $derived(solTime.endsWith("d"));
   let value = $derived(parseFloat(solTime) || 0);
+  let celestialAngle = $derived(
+    isDay ? (value / 100) * Math.PI : Math.PI + (value / 100) * Math.PI,
+  );
 
   // Generate markers: 0, 25, 50, 75 for day (d) and night (n)
   const markers = [0, 25, 50, 75].flatMap((n, i) => [
@@ -63,8 +58,6 @@
       120 - 100 * Math.sin(celestialAngle)
     })`}
   >
-    {#key period}
-      <Orb {period} {value} />
-    {/key}
+    <Orb {isDay} {value} />
   </g>
 </svg>

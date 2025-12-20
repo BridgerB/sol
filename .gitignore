@@ -11,6 +11,9 @@ package/node_modules
 .wrangler
 /.svelte-kit
 /build
+.deno-deploy/
+server-bin-linux
+result
 
 # OS
 .DS_Store
