@@ -4,6 +4,7 @@ steps:
     args:
       - "-c"
       - |
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs && nix-channel --update
           nix-shell -p deno --run "deno install --allow-scripts && deno task build && deno compile -A --no-check --target x86_64-unknown-linux-gnu --output server-bin-linux start.ts"
           nix-build build-image.nix --argstr serverBin "$(pwd)/server-bin-linux" --argstr staticDir "$(pwd)/.deno-deploy/static"
           mkdir -p ~/.config/containers
