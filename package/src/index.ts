@@ -1,4 +1,4 @@
-import SunCalc from "npm:suncalc@^1.9.0";
+import SunCalc from "suncalc";
 
 export interface SolQuery {
   date: Date;
