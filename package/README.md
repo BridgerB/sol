@@ -5,7 +5,14 @@ Calculate solar time as a percentage through the current day or night period.
 ## Install
 
 ```bash
+# npm
 npm install @bridgerb/sol
+
+# JSR (Deno, Node.js, Bun)
+npx jsr add @bridgerb/sol
+
+# Deno
+deno add jsr:@bridgerb/sol
 ```
 
 ## Usage
