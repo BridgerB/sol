@@ -1,6 +1,6 @@
 {
   "name": "@bridgerb/sol",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Calculate solar time as a percentage of day or night",
   "type": "module",
   "main": "dist/index.js",
