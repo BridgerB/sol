@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "npm:@bridgerb/sol@^1.0.5": "1.0.5",
     "npm:@deno/svelte-adapter@0.1": "0.1.0_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.0____acorn@8.15.0___vite@7.2.7____@types+node@20.19.27____picomatch@4.0.3___@types+node@20.19.27__svelte@5.46.0___acorn@8.15.0__vite@7.2.7___@types+node@20.19.27___picomatch@4.0.3__acorn@8.15.0__@types+node@20.19.27_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.0___acorn@8.15.0__vite@7.2.7___@types+node@20.19.27___picomatch@4.0.3__@types+node@20.19.27_svelte@5.46.0__acorn@8.15.0_vite@7.2.7__@types+node@20.19.27__picomatch@4.0.3_@types+node@20.19.27",
     "npm:@deno/vite-plugin@^1.0.6": "1.0.6_vite@7.2.7__@types+node@20.19.27__picomatch@4.0.3_@types+node@20.19.27",
     "npm:@sveltejs/kit@^2.49.1": "2.49.2_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.0___acorn@8.15.0__vite@7.2.7___@types+node@20.19.27___picomatch@4.0.3__@types+node@20.19.27_svelte@5.46.0__acorn@8.15.0_vite@7.2.7__@types+node@20.19.27__picomatch@4.0.3_acorn@8.15.0_@types+node@20.19.27",
@@ -16,6 +17,12 @@
     "npm:vite@^7.2.6": "7.2.7_@types+node@20.19.27_picomatch@4.0.3"
   },
   "npm": {
+    "@bridgerb/sol@1.0.5": {
+      "integrity": "sha512-cAznW8UKmcMGsamfPGLDKauR5ScFTpcbTr3k4174JB1cROq1+OMOhhZiLQxRTXCxeSpWwMeeh6FXfvSTPR29rw==",
+      "dependencies": [
+        "suncalc"
+      ]
+    },
     "@deno/experimental-route-config@0.0.5": {
       "integrity": "sha512-0PN4qij3sC3Qm8WbiOBGlOQz8WtB0AENGkzsTHOYyPenf40iW7OGFid8QT3L8lGApnz3t6ufET0c2XgagV8Jjw==",
       "dependencies": [
@@ -768,6 +775,9 @@
     "source-map@0.6.1": {
       "integrity": "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="
     },
+    "suncalc@1.9.0": {
+      "integrity": "sha512-vMJ8Byp1uIPoj+wb9c1AdK4jpkSKVAywgHX0lqY7zt6+EWRRC3Z+0Ucfjy/0yxTVO1hwwchZe4uoFNqrIC24+A=="
+    },
     "svelte-check@4.3.4_svelte@5.46.0__acorn@8.15.0_typescript@5.9.3": {
       "integrity": "sha512-DVWvxhBrDsd+0hHWKfjP99lsSXASeOhHJYyuKOFYJcP7ThfSCKgjVarE8XfuMWpS5JV3AlDf+iK1YGGo2TACdw==",
       "dependencies": [
@@ -859,6 +869,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
+        "npm:@bridgerb/sol@^1.0.5",
         "npm:@deno/svelte-adapter@0.1",
         "npm:@deno/vite-plugin@^1.0.6",
         "npm:@sveltejs/kit@^2.49.1",

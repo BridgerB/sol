@@ -29,7 +29,7 @@
     "vite": "^7.2.6"
   },
   "dependencies": {
-    "@bridgerb/sol": "file:./package",
+    "@bridgerb/sol": "^1.0.5",
     "@deno/vite-plugin": "^1.0.6",
     "postgres": "^3.4.7",
     "the-new-css-reset": "^1.11.3"
