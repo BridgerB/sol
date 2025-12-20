@@ -6,7 +6,11 @@
 pkgs.dockerTools.buildLayeredImage {
   name = "us-central1-docker.pkg.dev/altclock/cloud-run-source-deploy/sol";
   tag = "latest";
-  contents = [pkgs.cacert];
+  contents = [
+    pkgs.cacert
+    pkgs.glibc
+    pkgs.stdenv.cc.cc.lib  # libgcc_s.so.1
+  ];
 
   extraCommands = ''
     mkdir -p app/static
