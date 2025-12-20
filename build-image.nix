@@ -9,18 +9,19 @@ pkgs.dockerTools.buildLayeredImage {
   contents = [
     pkgs.cacert
     pkgs.glibc
-    pkgs.stdenv.cc.cc.lib  # libgcc_s.so.1
+    pkgs.stdenv.cc.cc.lib # libgcc_s.so.1
   ];
 
   extraCommands = ''
-    mkdir -p app/static
+    mkdir -p app/.deno-deploy/static
     cp ${serverBin} app/server
     chmod +x app/server
-    cp -r ${staticDir}/* app/static/
+    cp -r ${staticDir}/* app/.deno-deploy/static/
   '';
 
   config = {
     Cmd = ["/app/server"];
+    WorkingDir = "/app";
     Env = [
       "PORT=8080"
       "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
